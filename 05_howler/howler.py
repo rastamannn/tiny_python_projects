@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 """
 Author : Anonymous <Anonymous@localhost>
 Date   : 2021-10-11
