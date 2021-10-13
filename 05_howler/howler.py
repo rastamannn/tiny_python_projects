@@ -7,6 +7,7 @@ Purpose: Howler (Upper cases input)
 
 import argparse
 import os
+import sys
 
 
 # --------------------------------------------------
@@ -28,7 +29,11 @@ def get_args():
                         type=str,
                         default='')
 
-    return parser.parse_args()
+    args = parser.parse_args()    
+    if os.path.isfile(args.text):
+        args.text = open(args.text).read()
+
+    return args
 
 
 # --------------------------------------------------
@@ -36,20 +41,8 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    input_str = args.text
-    text=''
-    if os.path.isfile(input_str):
-        in_fh = open(input_str)
-        text = in_fh.read()
-    else:
-        text = input_str
-    output_str = text.upper().rstrip()
-    
-    if args.outfile == '':
-        print(output_str)
-    else:
-        out_fh = open(args.outfile, 'wt')
-        out_fh.write(output_str)
+    out_fh = open(args.outfile, 'wt') if args.outfile else sys.stdout
+    out_fh.write(args.text.upper() + '\n')
 
 
 # --------------------------------------------------
